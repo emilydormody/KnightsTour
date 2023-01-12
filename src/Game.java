@@ -14,16 +14,18 @@ public class Game extends JFrame implements ActionListener {
     public Game(int x, int y){
         this.x = x;
         this.y = y;
+        this.setSize(600,600);
         moveCount = 0;
+
         knight = new GamePiece();
         header = new JPanel();
         header.setLayout(new FlowLayout());
         gameBoard = new JPanel();
         gameBoard.setLayout(new GridLayout(x,y));
+        gameBoard.setSize(500,500);
         label = new JLabel("Sir Lancelot, visit every square once!");
         reset = new JButton("New Game");
         reset.addActionListener(e -> newGame());
-
         header.add(label);
         header.add(reset);
 
@@ -41,11 +43,11 @@ public class Game extends JFrame implements ActionListener {
 
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(header, BorderLayout.NORTH);
-        getContentPane().add(gameBoard, BorderLayout.SOUTH);
+        getContentPane().add(gameBoard, BorderLayout.CENTER);
         pack();
 
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
+        setResizable(true);
         setVisible(true);
     }
     public void updateLabel(){
