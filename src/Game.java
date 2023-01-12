@@ -23,6 +23,7 @@ public class Game extends JFrame implements ActionListener {
         label = new JLabel("Sir Lancelot, visit every square once!");
         reset = new JButton("New Game");
         reset.addActionListener(e -> newGame());
+
         header.add(label);
         header.add(reset);
 

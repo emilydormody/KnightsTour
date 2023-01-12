@@ -25,7 +25,7 @@ public class GamePiece {
         else if (selected.getColumn() == curr.getColumn()+2){
             return selected.getRow() == curr.getRow() + 1 || selected.getRow() == curr.getRow() - 1;
         }
-        return false;}
+        return false; }
 
     public boolean checkVisited(Square selected){
         return visitedSquares.contains(selected);
