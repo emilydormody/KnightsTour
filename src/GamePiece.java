@@ -3,10 +3,12 @@ import java.util.ArrayList;
 
 public class GamePiece {
     private ArrayList<Square> visitedSquares;
+    private ArrayList<Square> emptySquares;
     private Square curr;
 
     public GamePiece(){
         visitedSquares = new ArrayList<>();
+        emptySquares = new ArrayList<>();
     }
 
     public boolean checkFirst(){
@@ -32,7 +34,19 @@ public class GamePiece {
     }
     public void addVisited(Square selected){
         visitedSquares.add(selected);
+        emptySquares.remove(selected);
         curr = selected;
     }
+    public int countMoves(){ //counts the available moves
+        int possibleCount = 0;
+        for (Square emptySquare : emptySquares){
+            if (checkLegal(emptySquare)){
+                possibleCount++;}}
+        return possibleCount;}
+
     public Square getCurr() {return curr;}
+
+    public void addEmpty(Square selected){ //builds a list of squares that haven't been visited
+        emptySquares.add(selected);
+    }
 }

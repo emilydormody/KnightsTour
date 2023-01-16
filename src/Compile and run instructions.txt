@@ -1,0 +1,12 @@
+How to compile and run:
+
+- Place all .java class files in a single folder 
+- Open the Commmand Prompt/Terminal
+- Navigate to the assignment folder (where .java files are)
+- Enter javac *.java (to compile)
+- Enter java Driver (to run the program)
+- This will begin a new game for you. You can start by clicking on any square.
+From there, make valid knight moves to cover every square on the board. When
+all squares have been selected, a winner is announced. Clicking on the New
+Game button will restart your game. (You can click this at any time, the number 
+of possible moves are counted at the bottom if you get stuck.)

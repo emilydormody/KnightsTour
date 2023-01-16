@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 public class Game extends JFrame implements ActionListener {
     private int x,y,moveCount;
-    private JPanel header, gameBoard;
-    private JLabel label;
+    private JPanel header, gameBoard, bottom;
+    private JLabel label, possible;
     private JButton reset;
     private Square[][] board;
     private GamePiece knight;
@@ -21,17 +21,20 @@ public class Game extends JFrame implements ActionListener {
 
         header = new JPanel();
         header.setLayout(new FlowLayout());
-
+        bottom = new JPanel();
+        bottom.setLayout(new FlowLayout());
         gameBoard = new JPanel();
         gameBoard.setLayout(new GridLayout(x,y));
         gameBoard.setSize(500,500);
 
         label = new JLabel("Sir Lancelot, visit every square once!");
+        possible = new JLabel("Pick any square to begin");
         reset = new JButton("New Game");
         reset.addActionListener(e -> newGame());
 
         header.add(label);
         header.add(reset);
+        bottom.add(possible);
 
         board = new Square[x][y]; //builds the board
         for (int column = 0; column < x; column ++){
@@ -43,11 +46,13 @@ public class Game extends JFrame implements ActionListener {
                 board[column][row].setBorderPainted(false);
                 board[column][row].addActionListener(this);
                 gameBoard.add(board[column][row]);
+                knight.addEmpty(board[column][row]);
             }}
 
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(header, BorderLayout.NORTH);
         getContentPane().add(gameBoard, BorderLayout.CENTER);
+        getContentPane().add(bottom, BorderLayout.SOUTH);
         //pack();
 
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
@@ -56,8 +61,12 @@ public class Game extends JFrame implements ActionListener {
     }
     public void updateLabel(){
         moveCount++;
-        if (moveCount == x*y) {label.setText("You did it!");}
-        else {label.setText("Moves made: ".concat(Integer.toString(moveCount)));}
+        if (moveCount == x*y) {
+            label.setText("You did it!");
+            possible.setText("Hooray!");}
+        else {
+            label.setText("Moves made: ".concat(Integer.toString(moveCount)));
+            possible.setText("Possible moves: ".concat(Integer.toString(knight.countMoves())));}
     }
     public void setColor(Square[][] board,int column,int row){ //determines the colour of a Square
         if ((column+row) %2 == 0){
@@ -67,10 +76,12 @@ public class Game extends JFrame implements ActionListener {
     public void newGame(){ //resets the board
         moveCount = 0;
         label.setText("Sir Lancelot, visit every square once!");
+        possible.setText("Pick any square to begin");
         knight = new GamePiece();
         for (int column = 0; column < x; column ++){
             for (int row = 0; row < y; row ++){
-                setColor(board,column,row);}}
+                setColor(board,column,row);
+                knight.addEmpty(board[column][row]);}}
     }
 
     public void actionPerformed(ActionEvent e){
